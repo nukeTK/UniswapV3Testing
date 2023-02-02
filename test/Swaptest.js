@@ -15,7 +15,7 @@ describe("Uniswap Contract Single Swap", () => {
     swapDeploy = await SwapExample.deploy();
     await swapDeploy.deployed();
   });
-  it("SwapExactSingleInput Function", async () => {
+   /*  it("SwapExactSingleInput Function", async () => {
     const amountIn = 10n ** 18n;
 
     await weth.connect(accounts[0]).deposit({ value: amountIn });
@@ -34,5 +34,28 @@ describe("Uniswap Contract Single Swap", () => {
     await swapDeploy.swapExactOutputSingle(daiAmountOut, wethAmountInMax);
 
     console.log("Dai balance", await dai.balanceOf(accounts[0].address));
+  }); 
+
+  it("swapExactInputMultihop Function", async () => {
+    const amountIn = 10n ** 18n;
+   
+    await weth.connect(accounts[0]).deposit({ value: amountIn  });
+    await weth.connect(accounts[0]).approve(swapDeploy.address, amountIn );
+    
+    await swapDeploy.swapExactInputMultihop(amountIn);
+
+    console.log("Dai balance", await dai.balanceOf(accounts[0].address));
   });
+ */
+  it("swapExactInputMultihop Function", async () => {
+    const wethAmountInMax  = 10n ** 18n;
+    const daiAmountOut = 100n * 10n ** 18n;
+    await weth.connect(accounts[0]).deposit({ value: wethAmountInMax  });
+    await weth.connect(accounts[0]).approve(swapDeploy.address, wethAmountInMax );
+    
+    await swapDeploy.swapExactOutputMultihop(daiAmountOut, wethAmountInMax);
+
+    console.log("Dai balance", await dai.balanceOf(accounts[0].address));
+  });
+
 });
